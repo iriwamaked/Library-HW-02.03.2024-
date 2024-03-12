@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body class="common-container">
+    <nav class="menu">
+      <ul>
+        <li class="booksList" onclick="changeActive(this)">
+            <a href="library.html" onclick="changeActive(this)">Books</a></li>
+        <li>Visitors</li>
+        <li>Cards</li>
+        <li>Statistics</li>
+      </ul>
+    </nav>
+    <main class="main-container">
+      <h2>All BOOKS:</h2>
+      <div class="sortSearchContainer">
+        <div>
+            <label for="listForSort">Сортировать по: </label>
+            <select name="listForSort" id="listForSort">
+              <option value="Name">Название книги</option>
+              <option value="AuthorName">Имени Автора</option>
+              <option value="BookCount">Количеству книг в наличии</option>
+            </select>
+            <input type="button" value="Сортировать" id="sortButton">
+          </div>
+          <div>
+            <label for="search">Искать: </label>
+            <input type="text" name="search" id="search">
+            <input type="button" value="Поиск" id="Поиск">
+          </div>
+      </div>
+      <table id="booksList">
+        
+      </table>
+
+      <script type="module" src="./assets/library.js"></script>
+    </main>
+  </body>
+</html>
