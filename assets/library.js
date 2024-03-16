@@ -14,6 +14,9 @@ function changeActive(element) {
 
 const arrBooks = Book.Initialization();
 console.log(arrBooks);
+
+const editButtons = [];
+
 document.addEventListener("DOMContentLoaded", () => {
   const booksTable = document.getElementById("booksList");
   const row0 = booksTable.insertRow();
@@ -54,108 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
     img.style.paddingLeft = "5px";
     img.alt = "изображение для кнопки редактирования";
     editButton.appendChild(img);
-    editButton.addEventListener("click", () => EditBook(book));
+
+    editButtons.push(editButton);
+    // editButton.addEventListener("click", EditBook.bind(null, book));
     cell5.appendChild(editButton); // Добавляем кнопку в ячейку
+    
   });
+
+  editButtons.forEach((editButton, index) => {
+    editButton.addEventListener("click", () => EditBook(index));
+});
 });
 
-// function EditBook(book) {
-//   const modalWindow = document.createElement("div");
-//   modalWindow.classList.add("modal");
-//   const editBookForm = document.createElement("form");
-//   editBookForm.classList.add("modal-content");
+// console.log(editButtons);
 
-//   const label = document.createElement("label");
-//   label.setAttribute("for", "idBook");
-//   label.innerText = "ID";
-
-//   const input = document.createElement("input");
-//   input.setAttribute("name", "idBook");
-//   input.setAttribute("id", "idBook");
-//   input.value = book.getId();
-
-//   const label1 = document.createElement("label");
-//   label1.setAttribute("for", "bookname");
-//   label1.innerText = "Название книги:";
-
-//   const input1 = document.createElement("input");
-//   input1.setAttribute("name", "bookname");
-//   input1.setAttribute("id", "bookname");
-//   input1.value = book.getName();
-
-//   const label2 = document.createElement("label");
-//   label2.setAttribute("for", "bookAuthor");
-//   label2.innerText = "Автор:";
-
-//   const input2 = document.createElement("input");
-//   input2.setAttribute("name", "bookAuthor");
-//   input2.setAttribute("id", "bookAuthor");
-//   input2.value = book.getAuthorName();
-
-//   const label3 = document.createElement("label");
-//   label3.setAttribute("for", "year");
-//   label3.innerText = "Год выпуска:";
-
-//   const input3 = document.createElement("input");
-//   input3.setAttribute("name", "year");
-//   input3.setAttribute("id", "year");
-//   input3.value = book.getYear();
-
-//   const label4 = document.createElement("label");
-//   label4.setAttribute("for", "publish");
-//   label4.innerText = "Издательство:";
-
-//   const input4 = document.createElement("input");
-//   input4.setAttribute("name", "publish");
-//   input4.setAttribute("id", "publish");
-//   input4.value = book.getPublisher();
-
-//   const label5 = document.createElement("label");
-//   label5.setAttribute("for", "pages");
-//   label5.innerText = "Количество страниц:";
-
-//   const input5 = document.createElement("input");
-//   input5.setAttribute("name", "pages");
-//   input5.setAttribute("id", "pages");
-//   input5.value = book.getPagesNumber();
-
-//   const label6 = document.createElement("label");
-//   label6.setAttribute("for", "booksCount");
-//   label6.innerText = "Количество в наличии:";
-
-//   const input6 = document.createElement("input");
-//   input6.setAttribute("name", "booksCount");
-//   input6.setAttribute("id", "booksCount");
-//   input6.value = book.getCountOfBooks();
-
-//   const submitButton = document.createElement("input");
-//   submitButton.setAttribute("type", "submit");
-//   submitButton.setAttribute("value", "Сохранить");
-//   submitButton.style.marginTop = "1rem";
-//   submitButton.style.padding = "0.5rem";
-//   submitButton.style.width = "150px";
-
-//   editBookForm.appendChild(label);
-//   editBookForm.appendChild(input);
-//   editBookForm.appendChild(label1);
-//   editBookForm.appendChild(input1);
-//   editBookForm.appendChild(label2);
-//   editBookForm.appendChild(input2);
-//   editBookForm.appendChild(label3);
-//   editBookForm.appendChild(input3);
-//   editBookForm.appendChild(label4);
-//   editBookForm.appendChild(input4);
-//   editBookForm.appendChild(label5);
-//   editBookForm.appendChild(input5);
-//   editBookForm.appendChild(label6);
-//   editBookForm.appendChild(input6);
-//   editBookForm.appendChild(submitButton);
-
-//   modalWindow.appendChild(editBookForm);
-//   document.body.appendChild(modalWindow);
-//   console.log(book);
-//   modalWindow.style.display = "block";
-// }
 
 function createInput(name, id, value) {
     const input = document.createElement("input");
@@ -179,7 +94,32 @@ function createInput(name, id, value) {
     container.appendChild(input);
   }
   
-  function EditBook(book) {
+  function EditBook(index) {
+    // console.log(book);
+    console.log(index);
+    const tmp=arrBooks[index];
+    console.log(arrBooks[index], typeof(arrBooks[index] ));
+for (let key of tmp){
+    console.log(`${key}: ${tmp[key]}`)
+}
+    const book=Object.assign({}, arrBooks[index]);
+    // const book=structuredClone(arrBooks[index]);
+//     const myObject = Object.create(arrBooks[index]);
+// for (let key in myObject) {
+    
+//         console.log(`${key}: ${myObject[key]}`);
+    
+// }
+
+    // const book = deepClone(arrBooks[index]);
+    // for (let key in arrBooks[index]) {
+    //     if (Object.prototype.hasOwnProperty.call(arrBooks[index], key)) {
+    //         book[key] = arrBooks[index][key];
+    //     }
+    // }
+    
+
+    console.log(book);
     const modalWindow = document.createElement("div");
     modalWindow.classList.add("modal");
   
@@ -222,10 +162,10 @@ function createInput(name, id, value) {
       book.setPagesNumber(newPages);
       book.setCountOfBooks(newCount);
 
-      const index = arrBooks.findIndex(item => item.getId() === book.getId());
+    //   const index = arrBooks.findIndex(item => item.getId() === book.getId());
 
         // Обновляем данные книги в массиве arrBooks
-        arrBooks[index] = book;
+        arrBooks[index] = { ...book };
 
         // Обновляем строки в таблице, чтобы отразить внесенные изменения
         const booksTable = document.getElementById("booksList");
@@ -233,7 +173,7 @@ function createInput(name, id, value) {
         rowToUpdate.cells[1].textContent = book.getName();
         rowToUpdate.cells[2].textContent = book.getAuthorName();
         rowToUpdate.cells[3].textContent = book.getCountOfBooks();
-
+        
       modalWindow.style.display = "none";
     //   console.log(book);
       
@@ -257,6 +197,26 @@ function createInput(name, id, value) {
     document.body.appendChild(modalWindow);
     console.log(book);
     modalWindow.style.display = "block";
-    return book;
+    
+    // return book;
   }
 
+  function deepClone(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    let clone = Array.isArray(obj) ? [] : {};
+
+    for (let key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            if (typeof obj[key] === 'function') {
+                clone[key] = obj[key].bind(clone); // Привязываем метод к копии объекта
+            } else {
+                clone[key] = deepClone(obj[key]);
+            }
+        }
+    }
+
+    return clone;
+}
