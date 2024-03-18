@@ -62,10 +62,16 @@ tr {
   padding: 10px;
 }
 
-#booksList {
+#booksList, #visitorsList {
   margin-top: 1rem;
   width: 100%;
   border: 1px solid black;
+}
+
+#visitorsList td,
+tr {
+  border: 1px solid black;
+  padding: 10px;
 }
 
 .modal {

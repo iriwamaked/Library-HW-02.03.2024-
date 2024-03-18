@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitors</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="common-container"> 
+    <nav class="menu">
+        <ul>
+          <li class="booksList" onclick="changeActive(this)">
+              <a href="library.html" onclick="changeActive(this)">Books</a></li>
+          <li class="booksList" onclick="changeActive(this)"><a href="visitors.html" onclick="changeActive(this)">Visitors</a></li>
+          <li>Cards</li>
+          <li>Statistics</li>
+        </ul>
+      </nav>
+      <main class="main-container">
+        <h2>All VISITORS:</h2>
+      <div class="sortSearchContainer">
+        <div>
+            <label for="listForSort">Сортировать по: </label>
+            <select name="listForSort" id="listForSort">
+              <option value="Id">ID</option>
+              <option value="VisitorName">Имени посетителя</option>
+            </select>
+            <input type="button" value="Сортировать" id="sortButton">
+          </div>
+          <div>
+            <label for="search">Искать: </label>
+            <input type="text" name="search" id="search">
+            <input type="button" value="Поиск" id="searchButton">
+          </div>
+          <button id="addNewVisitor">Добавить</button>
+      </div>
+      <table id="visitorsList">
+        <tr>
+          <td>ID</td>
+          <td>ФИО посетителя</td>
+          <td>Номер телефона</td>
+          <td>Редактирование </td>
+        </tr>
+      </table>
+        </main>
+        <div id="addVisitorModal" class="modal">
+            <div class="modal-content">
+              <form id="addVisitorForm">
+                <label for="surname">Фамилия</label>
+                <input type="text" id="surname" name="surname">
+          
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name">
+          
+                <label for="lastname">Отчество</label>
+                <input type="text" id="lastname" name="lastname">
+    
+                <label for="phone">Телефон:</label>
+                <input type="text" id="phone" name="phone">
+    
+                <input type="submit" value="Добавить">
+              </form>
+            </div>
+            </div>  
+    <script src="./assets/visitors.js"></script>
+</body>
+</html>

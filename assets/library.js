@@ -20,11 +20,11 @@ function InitializationBookList() {
   const hasBookKey = keys.some((key) => key.startsWith("book"));
 
   if (hasBookKey) {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
+    // for (let i = 0; i < localStorage.length; i++) {
+    //   const key = localStorage.key(i);
 
       // Проверяем, является ли ключ ключом для книги
-      if (key.startsWith("book")) {
+    //   if (key.startsWith("book")) {
         // Получаем объект книги из localStorage
         // const book = JSON.parse(localStorage.getItem(key));
 
@@ -32,8 +32,8 @@ function InitializationBookList() {
         // createTableRow(book);
         // //   ButtonsListener();
         updateBooksList();
-      }
-    }
+    //   }
+    // }
   } else {
     localStorage.setItem("idCounter", Book.getIdCount());
     Book.Initialization();
@@ -42,37 +42,37 @@ function InitializationBookList() {
 
 InitializationBookList();
 
-function createTableRow(book) {
-  const booksTable = document.getElementById("booksList");
-  const row = booksTable.insertRow();
-  row.setAttribute("data-id", book.id); // Устанавливаем атрибут data-id для строки таблицы
-  const cell1 = row.insertCell(0);
-  const cell2 = row.insertCell(1);
-  const cell3 = row.insertCell(2);
-  const cell4 = row.insertCell(3);
-  const cell5 = row.insertCell(4);
+// function createTableRow(book) {
+//   const booksTable = document.getElementById("booksList");
+//   const row = booksTable.insertRow();
+//   row.setAttribute("data-id", book.id); // Устанавливаем атрибут data-id для строки таблицы
+//   const cell1 = row.insertCell(0);
+//   const cell2 = row.insertCell(1);
+//   const cell3 = row.insertCell(2);
+//   const cell4 = row.insertCell(3);
+//   const cell5 = row.insertCell(4);
 
-  cell1.textContent = book.id + ".";
-  cell2.textContent = book.name;
-  cell3.textContent = book.author;
-  cell4.textContent = book.count;
+//   cell1.textContent = book.id + ".";
+//   cell2.textContent = book.name;
+//   cell3.textContent = book.author;
+//   cell4.textContent = book.count;
 
-  cell4.style.textAlign = "center";
-  cell5.style.textAlign = "center";
+//   cell4.style.textAlign = "center";
+//   cell5.style.textAlign = "center";
 
-  const editButton = document.createElement("button");
-  const dymamicId = "buttonBook" + book.id;
-  editButton.setAttribute("id", dymamicId);
-  editButton.textContent = "Редактировать";
-  editButtons.push(editButton);
-  editButton.addEventListener("click", function () {
-    console.log("Нажата кнопка редактирования для книги с id:", book.id);
-    EditBook(book.id);
-  });
-  cell5.appendChild(editButton);
+//   const editButton = document.createElement("button");
+//   const dymamicId = "buttonBook" + book.id;
+//   editButton.setAttribute("id", dymamicId);
+//   editButton.textContent = "Редактировать";
+//   editButtons.push(editButton);
+//   editButton.addEventListener("click", function () {
+//     console.log("Нажата кнопка редактирования для книги с id:", book.id);
+//     EditBook(book.id);
+//   });
+//   cell5.appendChild(editButton);
 
-  return row;
-}
+//   return row;
+// }
 
 function createInput(name, id, value) {
   const input = document.createElement("input");
@@ -103,21 +103,21 @@ function createAndAppendInputAndLabel(
   container.appendChild(input);
 }
 
-function UpdateCells(key) {
-  // const key = `book${bookId}`;
-  const book = JSON.parse(localStorage.getItem(key));
-  console.log(book);
+// function UpdateCells(key) {
+//   // const key = `book${bookId}`;
+//   const book = JSON.parse(localStorage.getItem(key));
+//   console.log(book);
 
-  const bookId = key.replace("book", "");
-  // Находим строку с соответствующим data-id
-  const rowToUpdate = document.querySelector(`tr[data-id="${bookId}"]`);
-  console.log("Редактируется строка с айдишником", rowToUpdate);
+//   const bookId = key.replace("book", "");
+//   // Находим строку с соответствующим data-id
+//   const rowToUpdate = document.querySelector(`tr[data-id="${bookId}"]`);
+//   console.log("Редактируется строка с айдишником", rowToUpdate);
 
-  // Обновляем содержимое ячеек строки
-  rowToUpdate.cells[1].textContent = book.name;
-  rowToUpdate.cells[2].textContent = book.author;
-  rowToUpdate.cells[3].textContent = book.count;
-}
+//   // Обновляем содержимое ячеек строки
+//   rowToUpdate.cells[1].textContent = book.name;
+//   rowToUpdate.cells[2].textContent = book.author;
+//   rowToUpdate.cells[3].textContent = book.count;
+// }
 
 function EditBook(bookId) {
   const key = `book${bookId}`;
@@ -236,9 +236,9 @@ function getBooksArrayFromLocalStorage() {
   return booksArray;
 }
 
-// Пример использования:
-const booksArray = getBooksArrayFromLocalStorage();
-console.log(booksArray);
+// // Пример использования:
+// const booksArray = getBooksArrayFromLocalStorage();
+// console.log(booksArray);
 
 document.getElementById("sortButton").addEventListener("click", () => {
   const sortBy = document.getElementById("listForSort").value;
@@ -304,15 +304,10 @@ function searchBooks(query) {
 
 const openModalButton = document.getElementById("addNewBook");
 const modal = document.getElementById("addBookModal");
-//   const closeModalButton = document.getElementById("closeModalButton");
 
 openModalButton.addEventListener("click", function () {
   modal.style.display = "block";
 });
-
-//   closeModalButton.addEventListener("click", function() {
-//     modal.style.display = "none";
-//   });
 
 window.addEventListener("click", function (event) {
   if (event.target == modal) {
@@ -328,7 +323,6 @@ document
   .getElementById("addBookForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-    // Получаем значения из полей формы
     const title = document.getElementById("title").value.trim();
     const author = document.getElementById("author").value.trim();
     const year = document.getElementById("year").value.trim();
