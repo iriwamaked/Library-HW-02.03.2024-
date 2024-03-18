@@ -31,14 +31,46 @@
           <div>
             <label for="search">Искать: </label>
             <input type="text" name="search" id="search">
-            <input type="button" value="Поиск" id="Поиск">
+            <input type="button" value="Поиск" id="searchButton">
           </div>
+          <button id="addNewBook">Добавить</button>
       </div>
       <table id="booksList">
-        
+        <tr>
+          <td>ID</td>
+          <td>Название книги</td>
+          <td>Автор</td>
+          <td>Количество в наличии</td>
+          <td>Редактирование </td>
+        </tr>
       </table>
+      <div id="addBookModal" class="modal">
+        <div class="modal-content">
+          <form id="addBookForm">
+            <label for="title">Название книги:</label>
+            <input type="text" id="title" name="title">
+      
+            <label for="author">Автор:</label>
+            <input type="text" id="author" name="author">
+      
+            <label for="year">Год издания:</label>
+            <input type="text" id="year" name="year">
 
+            <label for="publisher">Издательство:</label>
+            <input type="text" id="publisher" name="publisher">
+
+            <label for="pagesCount">Количество страниц:</label>
+            <input type="text" id="pagesCount" name="pagesCount">
+
+            <label for="count">Количество в наличии:</label>
+            <input type="number" id="count" name="count" min="1">
+      
+            <input type="submit" value="Добавить">
+          </form>
+        </div>
+      </div>
       <script type="module" src="./assets/library.js"></script>
     </main>
   </body>
 </html>
+

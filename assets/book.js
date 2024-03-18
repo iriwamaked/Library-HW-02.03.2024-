@@ -1,13 +1,13 @@
 export class Book {
-  static #idCounter = 0;
+  static #idCounter = parseInt(localStorage.getItem('idCounter')) || 0;
 
-  #id;
-  #name;
-  #author_name;
-  #year;
-  #publisher_name;
-  #pages_number;
-  #count_exist;
+  id;
+  name;
+  author_name;
+  year;
+  publisher_name;
+  pages_number;
+  count_exist;
 
   constructor(
     name,
@@ -17,61 +17,80 @@ export class Book {
     pages_number,
     count_exist
   ) {
-    this.#id = Book.generateId();
-    this.#name = name;
-    this.#author_name = author_name;
-    this.#year = year;
-    this.#publisher_name = publisher_name;
-    this.#pages_number = pages_number;
-    this.#count_exist = count_exist;
+    this.id = Book.generateId();
+    this.name = name;
+    this.author_name = author_name;
+    this.year = year;
+    this.publisher_name = publisher_name;
+    this.pages_number = pages_number;
+    this.count_exist = count_exist;
+    this.saveToLocalStorage()
+    
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('idCounter', Book.#idCounter);
+    // Преобразуем объект в строку JSON
+    const data = JSON.stringify({ id: this.id, name: this.name, author: this.author_name, year: this.year, publisher: this.publisher_name, pages: this.pages_number, count: this.count_exist  });
+    // console.log(data);
+    // Записываем данные в localStorage
+    localStorage.setItem(`book${this.id}`, data);
   }
 
   static generateId() {
     return ++Book.#idCounter;
   }
 
+  static getIdCount(){
+    return this.#idCounter;
+  }
+  
+  static setIdCount(){
+    this.#idCounter=0;
+  }
+
   getId() {
-    return this.#id;
+    return this.id;
   }
 
   getName() {
-    return this.#name;
+    return this.name;
   }
 
   setName(value) {
-    if (value.length > 0 && value !== this.#name) {
-      this.#name = value;
+    if (value.length > 0 && value !== this.name) {
+      this.name = value;
     }
   }
 
   getAuthorName() {
-    return this.#author_name;
+    return this.author_name;
   }
 
   setAuthorName(value) {
-    if (value.length > 0 && value !== this.#author_name) {
-      this.#author_name = value;
+    if (value.length > 0 && value !== this.author_name) {
+      this.author_name = value;
     }
   }
 
   getYear() {
-    return this.#year;
+    return this.year;
   }
 
   setYear(value) {
-    this.#year = value;
+    this.year = value;
   }
 
   getPublisher() {
-    return this.#publisher_name;
+    return this.publisher_name;
   }
 
   setPublisher(value) {
-    this.#publisher_name = value;
+    this.publisher_name = value;
   }
 
   getPagesNumber() {
-    return this.#pages_number;
+    return this.pages_number;
   }
 
   setPagesNumber(value) {
@@ -79,12 +98,12 @@ export class Book {
       console.log("Error. Incorrect value of pages number, try again");
       return;
     } else {
-      this.#pages_number = value;
+      this.pages_number = value;
     }
   }
 
   getCountOfBooks() {
-    return this.#count_exist;
+    return this.count_exist;
   }
 
   setCountOfBooks(value) {
@@ -92,7 +111,7 @@ export class Book {
       console.log("Error. Incorrect value of books count, try again");
       return;
     } else {
-      this.#count_exist = value;
+      this.count_exist = value;
     }
   }
 
@@ -170,19 +189,4 @@ export class Book {
     ];
   }
 
-  sort(booksArr, NumOfSortMethod) {
-    switch (NumOfSortMethod) {
-      case 0:
-        booksArr.sort((a, b) => a.id - b.id);
-        break;
-      case 1:
-        booksArr.sort((a, b) => a.name.localCompare(b.name));
-        break;
-      case 2:
-        booksArr.sort((a, b) => a.author_name.localCompare(b.author_name));
-        break;
-      default:
-        console.lof("Uncorrect sort method");
-    }
-  }
 }
